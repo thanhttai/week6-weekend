@@ -1,0 +1,30 @@
+.border.border-info.mt-5.row {
+  padding: 22px 20px;
+}
+i {
+  opacity: 0.8;
+}
+.margin {
+  margin-bottom: 16px !important;
+}
+button.btn {
+  margin-bottom: 16px !important;
+  background-color: rgb(108 107 66) !important;
+  outline: none !important;
+}
+button.btn:hover {
+  background-color: rgb(108 107 66) !important;
+}
+.border-me {
+  border: 1px solid #ccc !important;
+  border-radius: 30px !important;
+  padding: 44px 10px !important;
+}
+.padding-me {
+  padding: 0 60px !important;
+}
+.border-me.mt-5.row {
+  border: 1px solid #ccc !important;
+  border-radius: 30px !important;
+  padding: 44px 10px !important;
+}
