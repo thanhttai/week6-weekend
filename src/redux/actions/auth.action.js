@@ -20,6 +20,7 @@ authAction.login =
   ({ email, password }) =>
   async (dispatch) => {
     try {
+      localStorage.removeItem('token');
       dispatch({ type: types.POST_LOGIN_REQUEST });
       const res = await api.post("/auth/login", { email, password });
       dispatch({ type: types.POST_LOGIN_SUCCESS, payload: res.data.data.user });
