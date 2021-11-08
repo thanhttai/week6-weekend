@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import authAction from "../../redux/actions/auth.action";
 import "./LoginPage.css";
-
+import userAction from "../../redux/actions/user.action";
 const LoginPage = () => {
   const [dataForm, setDataForm] = useState({
     email: "",
@@ -18,6 +18,16 @@ const LoginPage = () => {
     e.preventDefault();
     dispatch(authAction.login({ email, password }));
   };
+  
+    // dispatch(userAction.getCurrentUser())
+  
+//   const user = useSelector((state) => state.user.user);
+//   useEffect(() => {
+//     dispatch(userAction.getCurrentUser());
+//   }, []);
+
+// console.log(user,'get useerrrrrr')
+  // const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   return (
     <div className="register-form">

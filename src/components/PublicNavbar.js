@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import {Navbar, Container, FormControl, Nav, Button, Form } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import {useNavigate} from 'react-router-dom';
 import productAction from "../redux/actions/product.action";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import './PublicNavBar.css'
+import userAction from "../redux/actions/user.action";
+
 
 const PublicNavbar = () => {
     const [query, setQuery] = useState("");
@@ -26,7 +28,11 @@ const PublicNavbar = () => {
         e.preventDefault();
         dispatch(productAction.getAllProduct({pageNum, limit, query}));
     }
-
+    const user = useSelector((state) => state.user.user);
+    useEffect(() => {
+      dispatch(userAction.getCurrentUser());
+    }, []);
+    console.log(user, 'haha userrr neee')
     return (
         <div>
            <Navbar bg="light" expand="lg">
@@ -44,6 +50,14 @@ const PublicNavbar = () => {
                     
                     {/* <Nav.Link as={NavLink} to="/profile">Profile Page</Nav.Link> */}
                 </Nav>
+                {
+                    user && <div>
+                        <div style={{display:'inline-block'}}>{user.name}</div> 
+                        <Nav.Link as={NavLink} to="/update-login" style={{display:'inline-block'}}>
+                        <img src={user.avatarUrl} style={{width:'40px', margin:'0 20px', borderRadius: '50%'}}/>
+                        </Nav.Link>
+                    </div>
+                }
                 <Form className="d-flex" onSubmit={handleSubmit}>
                     <FormControl
                     type="search"

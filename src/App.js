@@ -11,6 +11,8 @@ import ProfilePage from "./pages/ProfilePage.js/ProfilePage";
 import CartPage from "./pages/CartPage/CartPage";
 import HomePage from "./pages/HomePage";
 import { Placeholder } from "react-bootstrap";
+import { ToastContainer, toast } from 'react-toastify';
+import UpdateLogin from "./pages/UpdateLogin/UpdateLogin";
 
 // import PrivateRoute from "./routes/PrivateRoute";
 
@@ -22,8 +24,10 @@ function App() {
         <PublicNavbar />
         </Placeholder>
     </Placeholder>
+    <ToastContainer />
       <Routes>
         <Route exact path="/" element={<HomePage />} />
+        <Route exact path="/update-login" element={<UpdateLogin />} />
         <Route exact path="/login" element={<LoginPage />} /> 
         <Route exact path="/profile" element={<ProfilePage />} />
         <Route exact path="/register" element={<RegisterPage />} />

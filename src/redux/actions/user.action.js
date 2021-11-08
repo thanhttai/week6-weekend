@@ -9,7 +9,7 @@ userAction.getCurrentUser = () => async (dispatch) => {
   try {
     dispatch({ type: types.GET_SINGLE_USER_REQUEST });
     const res = await api.get("/users/me");
-    dispatch({ type: types.GET_SINGLE_USER_SUCCESS });
+    dispatch({ type: types.GET_SINGLE_USER_SUCCESS, payload:res.data.data.user });
   } catch (err) {
     console.log(err);
     dispatch({ type: types.GET_SINGLE_USER_FAIL });
@@ -48,6 +48,20 @@ userAction.postOrder = () => {
           console.log(err);
           toast.error(err.message);
           dispatch({type: types.POST_REVIEW_FAIL});
+      }
+  }
+}
+userAction.putUser = ({name, email, image}) => {
+  return async (dispatch) => {
+      dispatch({type: types.PUT_USER_REQUEST});
+      try {
+          const res = await api.put(`/users/me`, {name, email, avatarUrl: image});
+          dispatch({type: types.PUT_USER_SUCCESS});
+          dispatch(userAction.getCurrentUser())
+          // toast.success("We've received your order. Thanks for shopping with us!");
+      } catch (err) {
+          console.log(err);
+          toast.error(err.message);
       }
   }
 }

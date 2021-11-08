@@ -50,7 +50,7 @@ const handleReviewSubmit = () => {
   useEffect(() => {
     dispatch(productAction.getProductDetail({productId}));
   }, [productId, dispatch]);
-console.log(product, 'produc ne pppppppppppp')
+
   return (  
     <Container>
     {loading ? (
