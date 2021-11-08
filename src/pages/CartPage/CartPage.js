@@ -24,11 +24,7 @@ const CartPage = () => {
       dispatch(userActions.postOrder());
       // dispatch(userActions.getCurrentUser());
   }
-    // useEffect(() => {
-    //   if(checkOut){ 
-    //     dispatch(userActions.postOder());
-    //   }
-    // }, []);
+  
 
 
     const loading = useSelector(state => state.carts.loading);

@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 import userActions from "../redux/actions/user.action";
 import { useDispatch, useSelector } from "react-redux";
 import cartActions from "../redux/actions/cart.action";
-// import bookActions from "../redux/actions/book.actions";
 import productAction from "../redux/actions/product.action";
 const BACKEND_API = process.env.REACT_APP_BACKEND_API;
 
@@ -14,7 +13,6 @@ const BookDetailPage = () => {
   const [showB, setShowB] = useState(true);
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(1);
-  // const [addingBook, setAddingBook] = useState(false);
   const [addingProductToCart, setAddingProductToCart] = useState(false);
   const params = useParams();
   const productId = params.id;
@@ -35,6 +33,7 @@ const BookDetailPage = () => {
 
 const handleReviewSubmit = () => {
     dispatch(userActions.postReview({ review, productId, rating }));
+    
 };
 
   useEffect(() => {
@@ -50,8 +49,8 @@ const handleReviewSubmit = () => {
   // const errorMessage = useSelector(state => state.books.errorMessage);
   useEffect(() => {
     dispatch(productAction.getProductDetail({productId}));
-  }, [productId]);
-
+  }, [productId, dispatch]);
+console.log(product, 'produc ne pppppppppppp')
   return (  
     <Container>
     {loading ? (
@@ -97,6 +96,12 @@ const handleReviewSubmit = () => {
               <div>
               <Button onClick={handleReviewSubmit}>Send review</Button>
               </div>
+              <ul>
+                {product && product.reviews.map((review)=> {
+                  return <li key={review._id}>{review.content}</li>;
+                })}
+              </ul>
+             
                 
         </Col>
         </Row>

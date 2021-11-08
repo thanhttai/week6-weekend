@@ -1,6 +1,8 @@
 import * as types from "../constants/user.constant";
 import api from "../../apiService";
 import {toast} from 'react-toastify'
+import productAction from './product.action'
+import cartActions from "./cart.action";
 const userAction = {};
 
 userAction.getCurrentUser = () => async (dispatch) => {
@@ -24,6 +26,7 @@ userAction.postReview = ({ productId, review, rating}) => {
               "rating": rating,
         });
           dispatch({type: types.POST_REVIEW_SUCCESS});
+          dispatch(productAction.getProductDetail({productId}));
           toast.success("Your review has been received");
       } catch (err) {
           console.log(err);
@@ -39,6 +42,7 @@ userAction.postOrder = () => {
       try {
           const res = await api.post(`/orders`);
           dispatch({type: types.POST_REVIEW_SUCCESS});
+          dispatch(cartActions.getCart())
           toast.success("We've received your order. Thanks for shopping with us!");
       } catch (err) {
           console.log(err);
