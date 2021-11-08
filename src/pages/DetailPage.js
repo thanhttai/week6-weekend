@@ -65,11 +65,11 @@ const handleReviewSubmit = () => {
   },[dispatch, deleteReview]);
   return (  
     <Container>
-    {loading ? (
+    {/* {loading ? (
         <div className="text-center">
         <ClipLoader color="#f86c6b" size={150} loading={true} />
         </div>
-    ) : (
+    ) : ( */}
         <Row className="border-me mt-5">
         <Col md={3}>
             {product && (
@@ -116,9 +116,9 @@ const handleReviewSubmit = () => {
         </Col>
         </Row>
         
-    )}
+    {/* )} */}
 </Container>
-  );
+  );  
 };
 
 export default BookDetailPage;
