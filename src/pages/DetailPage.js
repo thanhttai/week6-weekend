@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Col, Container, Row, Toast } from "react-bootstrap";
 import { ClipLoader } from "react-spinners";
 import { useParams } from "react-router-dom";
-import userAction from "../redux/actions/user.action";
+import userActions from "../redux/actions/user.action";
 import { useDispatch, useSelector } from "react-redux";
 import cartActions from "../redux/actions/cart.action";
 // import bookActions from "../redux/actions/book.actions";
@@ -19,19 +19,12 @@ const BookDetailPage = () => {
   const params = useParams();
   const productId = params.id;
 
-  // const addToReadingList = (book) => {
-  //   setAddingBook(book);
-  // };
-  
+
   const addToCart = (product) => {
     setAddingProductToCart(product?._id);
   };
 
-  // useEffect(() => {
-  //   if (addingBook) {
-  //     dispatch(bookActions.addToFavorite({addingBook}))
-  //   }
-  // }, [addingBook]);
+
   const toggleShowA = () => setShowA(!showA);
   const toggleShowB = () => setShowB(!showB);
 
@@ -41,7 +34,7 @@ const BookDetailPage = () => {
 }
 
 const handleReviewSubmit = () => {
-    dispatch(userAction.postReview({ review, productId, rating }));
+    dispatch(userActions.postReview({ review, productId, rating }));
 };
 
   useEffect(() => {

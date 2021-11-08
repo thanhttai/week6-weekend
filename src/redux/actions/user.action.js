@@ -33,17 +33,17 @@ userAction.postReview = ({ productId, review, rating}) => {
   }
 }
 
-userAction.postOder = () => {
+userAction.postOrder = () => {
   return async (dispatch) => {
       dispatch({type: types.POST_ORDER_REQUEST});
       try {
           const res = await api.post(`/orders`);
-          dispatch({type: types.POST_ORDER_SUCCESS});
-          toast.success("Your ORDER has been received");
+          dispatch({type: types.POST_REVIEW_SUCCESS});
+          toast.success("We've received your order. Thanks for shopping with us!");
       } catch (err) {
           console.log(err);
           toast.error(err.message);
-          dispatch({type: types.POST_ORDER_FAIL});
+          dispatch({type: types.POST_REVIEW_FAIL});
       }
   }
 }

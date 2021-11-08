@@ -9,7 +9,6 @@ import userActions from "../../redux/actions/user.action";
 const BACKEND_API = process.env.REACT_APP_BACKEND_API;
 
 const CartPage = () => {
-  const [checkOut, setCheckOut] = useState(false)
     const navigate = useNavigate();
   
     const handleClickProduct = (productId) => {
@@ -20,15 +19,16 @@ const CartPage = () => {
     const removeProduct = (productId) => {
       dispatch(cartActions.deleteCart(productId));
     };
-    const handleCheckOut = (e) => {
-      console.log(e.target)
-      setCheckOut(e.target);
-    }
-    useEffect(() => {
-      if(checkOut){ 
-        dispatch(userActions.postOder());
-      }
-    }, []);
+   
+    const handleCheckOut = () => {
+      dispatch(userActions.postOrder());
+      // dispatch(userActions.getCurrentUser());
+  }
+    // useEffect(() => {
+    //   if(checkOut){ 
+    //     dispatch(userActions.postOder());
+    //   }
+    // }, []);
 
 
     const loading = useSelector(state => state.carts.loading);
