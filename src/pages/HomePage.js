@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Alert, Card, Col, Container, Row, Button } from "react-bootstrap";
+import {  Card, Col, Container, Row } from "react-bootstrap";
 import { ClipLoader } from "react-spinners";
 import {useNavigate} from 'react-router-dom';
 import PaginationBar from "../components/PaginationBar";
-import SearchForm from "../components/SearchForm";
+// import SearchForm from "../components/SearchForm";
 import { useDispatch, useSelector } from "react-redux";
 import productAction from "../redux/actions/product.action";
 import './Homepage.css'

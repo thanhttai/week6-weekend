@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Container, Form ,Button} from 'react-bootstrap'
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import userAction from "../../redux/actions/user.action";
 const UpdateLogin = () => {
     const [dataForm, setDataForm] = useState({
@@ -30,7 +30,7 @@ const UpdateLogin = () => {
         e.preventDefault();
         dispatch(userAction.putUser({ name, email, image}));
       };
-      console.log(dataForm)
+      console.log(dataForm, 'hjahaah')
     return (
         <Container>
              <Form onSubmit={handleSubmit}>

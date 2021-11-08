@@ -9,7 +9,9 @@ import productAction from "../redux/actions/product.action";
 const BACKEND_API = process.env.REACT_APP_BACKEND_API;
 
 const BookDetailPage = () => {
+  const [deleteReview, setDeleteReview] = useState('')
   const [showA, setShowA] = useState(true);
+
   const [showB, setShowB] = useState(true);
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(1);
@@ -51,6 +53,16 @@ const handleReviewSubmit = () => {
     dispatch(productAction.getProductDetail({productId}));
   }, [productId, dispatch]);
 
+
+  const handleDeleteReview = (reviewId) => {
+    setDeleteReview(reviewId)
+  }
+  useEffect(() => {
+    if(deleteReview){
+    dispatch(userActions.deleteReview({deleteReview}))
+
+    }
+  },[dispatch, deleteReview]);
   return (  
     <Container>
     {loading ? (
@@ -98,7 +110,7 @@ const handleReviewSubmit = () => {
               </div>
               <ul>
                 {product && product.reviews.map((review)=> {
-                  return <li key={review._id}>{review.content}</li>;
+                  return <li key={review._id}>{review.content} <Button onClick={()=> handleDeleteReview(review._id)} style={{margin:'10px 30px'}}>Delete</Button></li>;
                 })}
               </ul>
         </Col>

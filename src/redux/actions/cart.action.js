@@ -44,7 +44,7 @@ cartActions.deleteCart = (bookId) => {
         try {
             let url = `/users/cart`;
             const res = await api.delete(url);
-            toast.success("The book has been removed from your cart");
+            
             dispatch(cartActions.getCart());
             dispatch({ type: types.DELETE_FROM_CART_SUCCESS })
         } catch (err) {

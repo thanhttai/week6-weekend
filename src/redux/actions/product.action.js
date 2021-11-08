@@ -1,6 +1,5 @@
 import * as types from "../constants/product.constant";
 import api from "../../apiService";
-import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 const productAction = {};
 
@@ -24,7 +23,7 @@ productAction.getProductDetail = ({productId}) => {
       try {
           dispatch({ type: types.GET_SINGLE_PRODUCT_REQUEST});
           const res = await api.get(`/products/${productId}`);
-          toast.success("The book has been added to the reading list!");
+          // toast.success("The book has been added to the reading list!");
           dispatch({ type: types.GET_SINGLE_PRODUCT_SUCCESS, payload: res.data.data.product});
       } catch (err) {
           console.log(err);

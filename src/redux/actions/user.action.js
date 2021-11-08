@@ -65,4 +65,19 @@ userAction.putUser = ({name, email, image}) => {
       }
   }
 }
+
+
+userAction.deleteReview = ({deleteReview}) => {
+  return async (dispatch) => {
+      dispatch({type: types.DELETE_REVIEW_REQUEST});
+      try {
+          const res = await api.delete(`reviews/:${deleteReview}`);
+          dispatch({type: types.DELETE_REVIEW_SUCCESS});
+          // toast.success("We've received your order. Thanks for shopping with us!");
+      } catch (err) {
+          console.log(err);
+          toast.error(err.message);
+      }
+  }
+}
 export default userAction;

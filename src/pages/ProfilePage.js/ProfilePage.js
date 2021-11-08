@@ -11,7 +11,7 @@ const ProfilePage = () => {
   let navigate = useNavigate();
   useEffect(() => {
     dispatch(userAction.getCurrentUser());
-  }, []);
+  }, [dispatch]);
 
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   if (!isAuthenticated) {
