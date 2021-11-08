@@ -36,7 +36,7 @@ section {
   color: #fff;
   pointer-events: none;
   white-space: nowrap;
-  text-shadow: calc(var(--x) 100px 0 rgba(255, 255, 255, 0.1));
+  /* text-shadow: calc(var(--x)) 100px 0 rgba(255, 255, 255, 0.1)); */
   transform: translateX(calc(0% - var(--x) * 2));
 }
 .text h2 span {
