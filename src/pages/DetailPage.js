@@ -101,8 +101,6 @@ console.log(product, 'produc ne pppppppppppp')
                   return <li key={review._id}>{review.content}</li>;
                 })}
               </ul>
-             
-                
         </Col>
         </Row>
         
