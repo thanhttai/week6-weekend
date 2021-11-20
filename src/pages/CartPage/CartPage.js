@@ -29,7 +29,7 @@ const CartPage = () => {
 
     const loading = useSelector(state => state.carts.loading);
     const products = useSelector(state => state.carts.cartBooks);
-    
+    console.log(products, 'bobobobobobobobbo')
     useEffect(() => {
       dispatch(cartActions.getCart());
     }, []);
@@ -64,14 +64,14 @@ const CartPage = () => {
                     >
                       <Card.Img
                         variant="top"
-                        src={product.productId.imageUrls[0]}
+                        src={product.productId.photo}
                         onClick={() => handleClickProduct(product.productId._id)}
                         style={{width:"100px"}}
                       />
                       <Card.Body style={{marginLeft:"100px"}}>
                         <Card.Title>Product: {product.productId.name}</Card.Title>
                         <Card.Text>By: {product.productId.description}</Card.Text>
-                        <Card.Text>Quantity: {product.quantity}</Card.Text>
+                        <Card.Text>Quantity: {product.qty}</Card.Text>
                         <Button
                           className="position-absolute btn-danger"
                           style={{ top: "5px", right: "5px" }}

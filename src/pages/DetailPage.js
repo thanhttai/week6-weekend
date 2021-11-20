@@ -12,6 +12,7 @@ const BookDetailPage = () => {
   const [deleteReview, setDeleteReview] = useState('')
   const [showA, setShowA] = useState(true);
 
+  const [update, setUpdate] = useState(false);
   const [showB, setShowB] = useState(true);
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(1);
@@ -22,6 +23,9 @@ const BookDetailPage = () => {
 
   const addToCart = (product) => {
     setAddingProductToCart(product?._id);
+  };
+  const updateProductToCart = (product) => {
+    setUpdate(product?._id);
   };
 
 
@@ -38,15 +42,24 @@ const handleReviewSubmit = () => {
     
 };
 
+useEffect(() => {
+  if (update) {
+    dispatch(cartActions.updateCart({update}))
+  }
+}, [update]);
+
   useEffect(() => {
     if (addingProductToCart) {
       dispatch(cartActions.addToCart({addingProductToCart}))
     }
   }, [addingProductToCart]);
 
+
   const dispatch = useDispatch();
   const product = useSelector((state) => state.product.singleProduct);
   const loading = useSelector(state => state.product.loading);
+ console.log(product, 'hahahahaahahphooong neneee')
+
   // console.log("book", book);
   // const errorMessage = useSelector(state => state.books.errorMessage);
   useEffect(() => {
@@ -60,7 +73,6 @@ const handleReviewSubmit = () => {
   useEffect(() => {
     if(deleteReview){
     dispatch(userActions.deleteReview({deleteReview}))
-
     }
   },[dispatch, deleteReview]);
   return (  
@@ -75,7 +87,7 @@ const handleReviewSubmit = () => {
             {product && (
             <img
                 className="w-100"
-                src={product?.imageUrls[0]}
+                src={product?.photo}
                 alt="Product Image"
             />
             )}
@@ -94,8 +106,11 @@ const handleReviewSubmit = () => {
                 <div className="margin">
                 <strong>In stock:</strong> {product?.stock}
                 </div>
+                <Button onClick={()=> updateProductToCart(product)}>
+                Update Cart
+                </Button>{" "}
                 <Button onClick={()=> addToCart(product)}>
-                Add to Cart
+                Create Cart
                 </Button>{" "}
             </>
             )}
@@ -109,9 +124,9 @@ const handleReviewSubmit = () => {
               <Button onClick={handleReviewSubmit}>Send review</Button>
               </div>
               <ul>
-                {product && product.reviews.map((review)=> {
+                {product &&product?.ratings && product?.ratings?.map((review)=> {
                   return <li key={review._id}>{review.content} <Button onClick={()=> handleDeleteReview(review._id)} style={{margin:'10px 30px'}}>Delete</Button></li>;
-                })}
+                })} 
               </ul>
         </Col>
         </Row>

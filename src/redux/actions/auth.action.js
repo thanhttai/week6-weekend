@@ -8,7 +8,7 @@ authAction.register =
   async (dispatch) => {
     try {
       dispatch({ type: types.POST_REGISTER_REQUEST });
-      const res = await api.post("/auth/register", { name, email, password });
+      const res = await api.post("/users", { name, email, password });
       dispatch({ type: types.POST_REGISTER_SUCCESS });
     } catch (err) {
       console.log(err);
@@ -22,11 +22,11 @@ authAction.login =
     try {
       localStorage.removeItem('token');
       dispatch({ type: types.POST_LOGIN_REQUEST });
-      const res = await api.post("/auth/login", { email, password });
+      const res = await api.post("/users/login", { email, password });
       dispatch({ type: types.POST_LOGIN_SUCCESS, payload: res.data.data.user });
       api.defaults.headers.common["authorization"] =
-        "Bearer " + res.data.data.accessToken;
-      localStorage.setItem("token", res.data.data.accessToken);
+        "Bearer " + res.data.data;
+      localStorage.setItem("token", res.data.data);
     } catch (err) {
       console.log(err);
       dispatch({ type: types.POST_LOGIN_FAIL });

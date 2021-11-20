@@ -30,7 +30,6 @@ const HomePage = () => {
   const dispatch = useDispatch();
   const products = useSelector(state => state?.product?.product);
   const loading = useSelector(state => state?.product?.loading);
- 
   // const errorMessage = useSelector(state => state.products.errorMessage);
   useEffect(() => {
     dispatch(productAction.getAllProduct({pageNum, limit, query}));
@@ -90,14 +89,14 @@ const HomePage = () => {
               {products && products.map((product) => (
                   <li key={product._id} className="item">
                       <Card style={{ width: '18rem' }} className="card-width">
-                <Card.Img variant="top" src={product.imageUrls[0]} onClick={()=> handleClickProduct(product._id)}/>
+                <Card.Img variant="top" src={product.photo} onClick={()=> handleClickProduct(product._id)}/>
                 <Card.Body>
                   <Card.Title className="title">{product.name}</Card.Title>
                   {/* <Card.Text className="desc">
                     {product.description.length <= 100 ? product.description : product.description.slice(0, 100) + "..."}
                   </Card.Text> */}
                   <Card.Text className="price">
-                  Price: {product.price.toLocaleString()} VND
+                  Price: {product.price.toLocaleString()} USD
                   </Card.Text>
              
                 </Card.Body>
