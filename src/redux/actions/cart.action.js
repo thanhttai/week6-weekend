@@ -27,8 +27,7 @@ cartActions.updateCart = ({update}) => {
         dispatch({ type: types.POST_TO_CART_REQUEST})
         try {
             let url = `/carts/add-product-cart`;
-            const res = await api.put(url,{productId: update, qty:1});
-            console.log(res,'plzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz')
+            const res = await api.put(url,[{productId: update, qty:1}]);
             toast.success("The book has been successfully added to your cart!");
            
             dispatch({ type: types.POST_TO_CART_SUCCESS, payload: res });
@@ -49,7 +48,8 @@ cartActions.getCart = () => {
             // let url = `/carts/single-cart?cartId=6198d27f128de20f5c420bf7`;
             let url = `/carts/single-cart`;
             const res = await api.get(url);
-            dispatch ({type: types.GET_TO_CART_SUCCESS, payload: res.data.data.products});
+            
+            dispatch ({type: types.GET_TO_CART_SUCCESS, payload: res.data.data});
         } catch (err) {
             console.log(err);
             dispatch ({type: types.GET_TO_CART_FAIL, payload: err.message});
@@ -58,14 +58,13 @@ cartActions.getCart = () => {
 };
 
 
-cartActions.deleteCart = (bookId) => {
+cartActions.deleteCart = ({idCart }) => {
     return async (dispatch) => {
         dispatch({ type: types.DELETE_FROM_CART_REQUEST})
-        console.log(bookId,'delete id')
         try {
-            let url = `/users/cart`;
+            const cardId = idCart
+            let url = `/carts/${cardId}`;
             const res = await api.delete(url);
-            
             dispatch(cartActions.getCart());
             dispatch({ type: types.DELETE_FROM_CART_SUCCESS })
         } catch (err) {

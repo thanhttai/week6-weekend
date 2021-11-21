@@ -10,29 +10,46 @@ const BACKEND_API = process.env.REACT_APP_BACKEND_API;
 
 const CartPage = () => {
     const navigate = useNavigate();
+    const [productId, setproductId] = useState(false)
   
     const handleClickProduct = (productId) => {
       navigate(`/product/${productId}`);
     };
   
     const dispatch = useDispatch();
-    const removeProduct = (productId) => {
-      dispatch(cartActions.deleteCart(productId));
-    };
-   
-    const handleCheckOut = () => {
-      dispatch(userActions.postOrder());
-      // dispatch(userActions.getCurrentUser());
-  }
   
+   
+   
 
 
     const loading = useSelector(state => state.carts.loading);
-    const products = useSelector(state => state.carts.cartBooks);
-    console.log(products, 'bobobobobobobobbo')
+    const products = useSelector(state => state.carts.cartBooks?.products);
+    const idCart = useSelector(state => state.carts.cartBooks?._id);
+    // const products = useSelector(state => state.carts.cartBooks);
+    const handleCheckOut = () => {
+      if(idCart){
+        dispatch(userActions.postOrder(idCart));
+      }
+      // dispatch(userActions.getCurrentUser());
+  }
+  
+    
     useEffect(() => {
       dispatch(cartActions.getCart());
     }, []);
+
+        const removeProduct = (id) => {
+          if(id?.productId?._id && idCart){
+            const productId =id?.productId?._id 
+            setproductId(productId)
+          }
+        };
+        useEffect(() =>{
+            if(productId){
+
+              dispatch(cartActions.deleteCart({ idCart}));
+            }
+        },[productId]);
 
     return (
       <Container>
@@ -76,7 +93,7 @@ const CartPage = () => {
                           className="position-absolute btn-danger"
                           style={{ top: "5px", right: "5px" }}
                           size="sm"
-                          onClick={() => removeProduct(product._id)}
+                          onClick={() => removeProduct(product)}
                         >
                           &times;
                         </Button>

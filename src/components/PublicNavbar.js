@@ -70,7 +70,7 @@ const PublicNavbar = () => {
                     
                 </Form>
                 <Nav.Link as={NavLink} to="/register" style={{color:'#000'}}>Sign up</Nav.Link>
-                    <Nav.Link as={NavLink} to="https://ecommer-thanhttri.herokuapp.com/api/users/loginwithgoogle" style={{color:'#000'}}>Log in</Nav.Link>
+                    <Nav.Link as={NavLink} to="/login" style={{color:'#000'}}>Log in</Nav.Link>
                 </Navbar.Collapse>
             </Container>
             </Navbar>

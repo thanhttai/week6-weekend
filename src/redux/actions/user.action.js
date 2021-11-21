@@ -36,11 +36,11 @@ userAction.postReview = ({ productId, review, rating}) => {
   }
 }
 
-userAction.postOrder = () => {
+userAction.postOrder = (cartId) => {
   return async (dispatch) => {
-      dispatch({type: types.POST_ORDER_REQUEST});
+      dispatch({type: types.POST_ORDER_REQUEST}); 
       try {
-          const res = await api.post(`/orders`);
+          const res = await api.put(`/carts/payment/${cartId}`);
           dispatch({type: types.POST_REVIEW_SUCCESS});
           dispatch(cartActions.getCart())
           toast.success("We've received your order. Thanks for shopping with us!");
