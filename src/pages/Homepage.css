@@ -1,4 +1,4 @@
-/* @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;500;600;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;500;600;700;900&display=swap");
 
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&display=swap");
 
@@ -37,7 +37,7 @@ section {
   pointer-events: none;
   white-space: nowrap;
   /* text-shadow: calc(var(--x)) 100px 0 rgba(255, 255, 255, 0.1)); */
-/* transform: translateX(calc(0% - var(--x) * 2));
+  transform: translateX(calc(0% - var(--x) * 2));
 }
 .text h2 span {
   color: #0f0;
@@ -81,4 +81,4 @@ li.item {
 }
 .card-width {
   min-height: 430px;
-} */
+}
