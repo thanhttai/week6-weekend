@@ -11,15 +11,34 @@ const BACKEND_API = process.env.REACT_APP_BACKEND_API;
 const BookDetailPage = () => {
   const [deleteReview, setDeleteReview] = useState('')
   const [showA, setShowA] = useState(true);
+  const [showB, setShowB] = useState(true);
 
   const [update, setUpdate] = useState(false);
-  const [showB, setShowB] = useState(true);
+  const [comment, setComment] = useState(false);
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(1);
+  const [updateComment, setUpdateComment] = useState(false)
+  
   const [addingProductToCart, setAddingProductToCart] = useState(false);
   const params = useParams();
   const productId = params.id;
 
+  const handleCommentText = (e) => {
+    console.log(e.target.value, 'hahahahaha')
+    setComment(e.target.value)
+   
+  }
+  // useEffect(() => {
+    
+  // },[comment])
+
+  const handleSuccess = (e) => {  
+    
+    if(e.keyCode === 13) {
+      setUpdateComment(false)
+      dispatch(userActions.putReview({updateComment, comment, productId}))
+    }
+  }
 
   const addToCart = (product) => {
     setAddingProductToCart(product?._id);
@@ -38,9 +57,22 @@ const BookDetailPage = () => {
 }
 
 const handleReviewSubmit = () => {
+  
     dispatch(userActions.postReview({ review, productId, rating }));
     
 };
+
+const  handUpdateReview = (id) => {
+  console.log(id,'hohohohohohho')
+  setUpdateComment(id)
+}
+// useEffect(() => {
+  
+//   if (updateComment && comment) {
+//     console.log('ngonnnnn lànhhhhhhhh')
+//     dispatch(userActions.putReview({updateComment, comment}))
+//   }
+// }, [comment]);
 
 useEffect(() => {
   if (update) {
@@ -58,7 +90,8 @@ useEffect(() => {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.product.singleProduct);
   const loading = useSelector(state => state.product.loading);
- console.log(product, 'hahahahaahahphooong neneee')
+  const comments = useSelector(state => state.user.comment);
+ console.log(comments, 'reviewwwwwwww neneee')
 
   // console.log("book", book);
   // const errorMessage = useSelector(state => state.books.errorMessage);
@@ -72,9 +105,16 @@ useEffect(() => {
   }
   useEffect(() => {
     if(deleteReview){
-    dispatch(userActions.deleteReview({deleteReview}))
+      console.log(deleteReview,'huhuhuhuhuhuhuhu')
+    dispatch(userActions.deleteReview({deleteReview, productId}))
     }
   },[dispatch, deleteReview]);
+
+  useEffect(() => {
+    dispatch(userActions.getAllComment({productId, dispatch}))
+  },[productId]);   
+  // dispatch(userActions.getAllComment())
+
   return (  
     <Container>
     {/* {loading ? (
@@ -124,8 +164,20 @@ useEffect(() => {
               <Button onClick={handleReviewSubmit}>Send review</Button>
               </div>
               <ul>
-                {product &&product?.ratings && product?.ratings?.map((review)=> {
-                  return <li key={review._id}>{review.content} <Button onClick={()=> handleDeleteReview(review._id)} style={{margin:'10px 30px'}}>Delete</Button></li>;
+                {comments && comments.map((review)=> {
+                  return <li key={review._id}>{review.content}
+                   <Button onClick={()=> handleDeleteReview(review._id)} style={{margin:'10px 30px'}}>
+                     Delete
+                    </Button>
+                    {updateComment ? 
+                    <textarea onChange={handleCommentText} onKeyDown={handleSuccess} style={{margin:'10px 30px'}}>
+                    
+                   </textarea>: 
+                   <Button onClick={()=> handUpdateReview(review._id)} style={{margin:'10px 30px'}}>
+                     Update
+                    </Button>
+                    }
+                   </li>;
                 })} 
               </ul>
         </Col>

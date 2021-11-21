@@ -56,6 +56,13 @@ const RegisterPage = () => {
         <Button variant="primary" type="submit">
           Submit
         </Button>
+        <div className="under-container" style={{marginTop:"1rem", borderTop: "1px solid lightgray", paddingTop:"1rem"}}>
+            <Form.Label><strong>Or sign up with </strong></Form.Label>
+            <br />
+            <a href="https://ecommer-thanhttri.herokuapp.com/api/users/loginwithgoogle" style={{textDecoration:"none", color:"#DB4437"}}><strong>Google</strong></a>
+            <br />
+            <a href="https://ecommer-thanhttri.herokuapp.com/api/users/loginwithfacebook"style={{textDecoration:"none", color:"#4267B2" }}><strong>Facebook</strong></a>
+        </div>
       </Form>
     </div>
   );

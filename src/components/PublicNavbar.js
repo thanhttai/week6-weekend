@@ -23,15 +23,21 @@ const PublicNavbar = () => {
         setQuery(e.target.value);
     }
 
+    // const handleLogOut = (e) => {
+    //     localStorage.removeItem("token");
+    //     // dispatch(userAction.logout())
+    //     // dispatch(userAction.getCurrentUser())
+    // }
+
     const navigate = useNavigate();
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(productAction.getAllProduct({pageNum, limit, query}));
     }
     const user = useSelector((state) => state.user.user);
-    useEffect(() => {
-      dispatch(userAction.getCurrentUser());
-    }, []);
+    // useEffect(() => {
+    //     dispatch(userAction.getCurrentUser());
+    //   }, []);
     console.log(user, 'haha userrr neee')
     return (
         <div>
@@ -50,11 +56,12 @@ const PublicNavbar = () => {
                     
                     {/* <Nav.Link as={NavLink} to="/profile">Profile Page</Nav.Link> */}
                 </Nav>
+                {/* <Nav.Link as={NavLink} to="/" onClick={handleLogOut} style={{ marginRight: 30}}>Log out</Nav.Link>   */}
                 {
                     user && <div>
                         <div style={{display:'inline-block'}}>{user.name}</div> 
                         <Nav.Link as={NavLink} to="/update-login" style={{display:'inline-block'}}>
-                        <img src={user.avatarUrl} style={{width:'40px', margin:'0 20px', borderRadius: '50%'}}/>
+                        <img src={user.avatar} style={{width:'40px', margin:'0 20px', borderRadius: '50%'}}/>
                         </Nav.Link>
                     </div>
                 }
