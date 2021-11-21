@@ -17,6 +17,9 @@ const HomePage = () => {
   const totalPage = 10;
   const limit = 10;
 
+
+  const [query, setQuery] = useState("");
+
   const navigate = useNavigate();
 
   const handleClickProduct = (productId) => {

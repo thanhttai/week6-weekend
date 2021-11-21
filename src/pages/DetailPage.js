@@ -9,11 +9,13 @@ import productAction from "../redux/actions/product.action";
 
 const BookDetailPage = () => {
   const [deleteReview, setDeleteReview] = useState('')
+  const [showA, setShowA] = useState(true);
+  const [showB, setShowB] = useState(true);
 
   const [update, setUpdate] = useState(false);
   const [comment, setComment] = useState(false);
   const [review, setReview] = useState("");
-  // const [rating, setRating] = useState(1);
+  const [rating, setRating] = useState(1);
   const [updateComment, setUpdateComment] = useState(false)
   
   const [addingProductToCart, setAddingProductToCart] = useState(false);
