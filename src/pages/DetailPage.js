@@ -1,22 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Button, Col, Container, Row, Toast } from "react-bootstrap";
-import { ClipLoader } from "react-spinners";
 import { useParams } from "react-router-dom";
 import userActions from "../redux/actions/user.action";
 import { useDispatch, useSelector } from "react-redux";
 import cartActions from "../redux/actions/cart.action";
 import productAction from "../redux/actions/product.action";
-const BACKEND_API = process.env.REACT_APP_BACKEND_API;
+
 
 const BookDetailPage = () => {
   const [deleteReview, setDeleteReview] = useState('')
-  const [showA, setShowA] = useState(true);
-  const [showB, setShowB] = useState(true);
 
   const [update, setUpdate] = useState(false);
   const [comment, setComment] = useState(false);
   const [review, setReview] = useState("");
-  const [rating, setRating] = useState(1);
+  // const [rating, setRating] = useState(1);
   const [updateComment, setUpdateComment] = useState(false)
   
   const [addingProductToCart, setAddingProductToCart] = useState(false);

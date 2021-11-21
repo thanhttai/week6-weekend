@@ -36,7 +36,7 @@ const CartPage = () => {
     
     useEffect(() => {
       dispatch(cartActions.getCart());
-    }, []);
+    }, [dispatch]);
 
         const removeProduct = (id) => {
           if(id?.productId?._id && idCart){
@@ -49,7 +49,7 @@ const CartPage = () => {
 
               dispatch(cartActions.deleteCart({ idCart}));
             }
-        },[productId]);
+        },[productId, dispatch]);
 
     return (
       <Container>

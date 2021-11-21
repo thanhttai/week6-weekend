@@ -61,7 +61,7 @@ const PublicNavbar = () => {
                     user && <div>
                         <div style={{display:'inline-block'}}>{user.name}</div> 
                         <Nav.Link as={NavLink} to="/update-login" style={{display:'inline-block'}}>
-                        <img src={user.avatar} style={{width:'40px', margin:'0 20px', borderRadius: '50%'}}/>
+                        <img alt="" src={user.avatar} style={{width:'40px', margin:'0 20px', borderRadius: '50%'}}/>
                         </Nav.Link>
                     </div>
                 }

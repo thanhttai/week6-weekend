@@ -34,10 +34,10 @@ const HomePage = () => {
   useEffect(() => {
     dispatch(productAction.getAllProduct({pageNum, limit, query}));
   }, [dispatch, pageNum, limit, query]);
- const position = document.documentElement
- position.addEventListener("mousemove",e=>{
-   position.style.setProperty('--x',e.clientX + 'px');
- })
+//  const position = document.documentElement
+//  position.addEventListener("mousemove",e=>{
+//    position.style.setProperty('--x',e.clientX + 'px');
+//  })
 
   return (
     <div>
@@ -48,7 +48,7 @@ const HomePage = () => {
       </Row>
       </Container>
       
-        <section>
+        {/* <section>
         <div className="text">
           <h2><span>Just 4 Fun </span><span>Just 4 Fun </span><span>Just 4 Fun </span><span>Just 4 Fun </span><span>Just 4 Fun </span><span>Just 4 Fun </span><span>Just 4 Fun </span><span>Just 4 Fun </span><span>Just 4 Fun </span><span>Just 4 Fun </span></h2>
           <h2><span>Just 4 Fun </span><span>Just 4 Fun </span><span>Just 4 Fun </span><span>Just 4 Fun </span><span>Just 4 Fun </span><span>Just 4 Fun </span><span>Just 4 Fun </span><span>Just 4 Fun </span><span>Just 4 Fun </span><span>Just 4 Fun </span></h2>
@@ -60,7 +60,7 @@ const HomePage = () => {
           <h2><span>Just 4 Fun </span><span>Just 4 Fun </span><span>Just 4 Fun </span><span>Just 4 Fun </span><span>Just 4 Fun </span><span>Just 4 Fun </span><span>Just 4 Fun </span><span>Just 4 Fun </span><span>Just 4 Fun </span><span>Just 4 Fun </span></h2>
           <h2><span>Just 4 Fun </span><span>Just 4 Fun </span><span>Just 4 Fun </span><span>Just 4 Fun </span><span>Just 4 Fun </span><span>Just 4 Fun </span><span>Just 4 Fun </span><span>Just 4 Fun </span><span>Just 4 Fun </span><span>Just 4 Fun </span></h2>
         </div>
-      </section>
+      </section> */}
      
       <Container>
       <Row className="justify-content-center">
