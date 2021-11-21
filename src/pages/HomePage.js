@@ -10,15 +10,12 @@ import './Homepage.css'
 
 
 
-const BACKEND_API = process.env.REACT_APP_BACKEND_API;
+
 
 const HomePage = () => {
   const [pageNum, setPageNum] = useState(1);
   const totalPage = 10;
   const limit = 10;
-
-  const [searchInput, setSearchInput] = useState("");
-  const [query, setQuery] = useState("");
 
   const navigate = useNavigate();
 
