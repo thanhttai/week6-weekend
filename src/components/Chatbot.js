@@ -69,7 +69,7 @@ class Chatbot extends Component {
         //     })
         //     .catch(error=> console.log(error))
           
-        const res = await axios.post('http://localhost:5000/api/df_text_query',{text: queryText, userID: cookies.get('userID')})
+        const res = await axios.post('https://ecommer-thanhttri.herokuapp.com/api/df_text_query',{text: queryText, userID: cookies.get('userID')})
         for(let msg of res.data.fulfillmentMessages){
             console.log(JSON.stringify(msg))
             says = {
@@ -81,7 +81,7 @@ class Chatbot extends Component {
 
     }
     async df_event_query(eventName){
-        const res = await axios.post('http://localhost:5000/api/df_event_query', {event: eventName, userID: cookies.get('userID') });
+        const res = await axios.post('https://ecommer-thanhttri.herokuapp.com/api/df_event_query', {event: eventName, userID: cookies.get('userID') });
     
         for(let msg of res.data.fulfillmentMessages){
             let says = {
