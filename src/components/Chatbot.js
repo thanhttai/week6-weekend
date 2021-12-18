@@ -30,6 +30,7 @@ class Chatbot extends Component {
         }
     }
     async df_text_query(queryText){
+      try {
         let says = {
             speaks: 'me',
             msg: {
@@ -39,37 +40,8 @@ class Chatbot extends Component {
             }
         }
         this.setState({messages: [...this.state.messages, says]});
-        // const data = {text: queryText, userID: cookies.get('userID')}
-        //  fetch('https://salty-meadow-27239.herokuapp.com/api/df_text_query', {
-        //     method: 'POST',
-        //     body: JSON.stringify(data),
-        //     headers: {
-        //         'Content-Type': 'application/json'
-              
-        //       },
-        //       mode: 'no-cors', 
-        //     cache: 'no-cache',
-        //  })
-        //     .then(response => {
-        //         console.log(response)
-        //         response.json()
-        //     })
-        //     .then(data => {
-        //         if(data){
-        //             for(let msg of data.data.fulfillmentMessages){
-        //                 console.log(JSON.stringify(msg))
-        //                 says = {
-        //                     speaks: 'bot',
-        //                     msg: msg
-        //                 }
-        //                 this.setState({messages: [...this.state.messages, says]});
-        //             }
-        //         }
-                
-        //     })
-        //     .catch(error=> console.log(error))
-          
-        const res = await axios.post('https://ecommer-thanhttri.herokuapp.com/api/df_text_query',{text: queryText, userID: cookies.get('userID')})
+  
+        const res = await axios.post('https://ecommer-thanhttri.herokuapp.com/api/df_text_query',{text: queryText, userID: cookies.get('userID')},{headers: {"Access-Control-Allow-Origin": "*"}})
         for(let msg of res.data.fulfillmentMessages){
             console.log(JSON.stringify(msg))
             says = {
@@ -79,9 +51,13 @@ class Chatbot extends Component {
             this.setState({messages: [...this.state.messages, says]});
         }
 
+      } catch (error) {
+          console.log(error)
+      }
     }
     async df_event_query(eventName){
-        const res = await axios.post('https://ecommer-thanhttri.herokuapp.com/api/df_event_query', {event: eventName, userID: cookies.get('userID') });
+       try {
+        const res = await axios.post('https://ecommer-thanhttri.herokuapp.com/api/df_event_query', {event: eventName, userID: cookies.get('userID')},{headers: {"Access-Control-Allow-Origin": "*"}});
     
         for(let msg of res.data.fulfillmentMessages){
             let says = {
@@ -91,6 +67,9 @@ class Chatbot extends Component {
             this.setState({messages: [...this.state.messages, says]});
             
         }
+       } catch (error) {
+           console.log(error)
+       }
     }
 
     resolveAfterXaSeconds(x){
