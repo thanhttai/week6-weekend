@@ -1,3 +1,50 @@
-.register-form{
-    margin: 5rem 40rem;
+.container__my {
+  background-color: #ccc;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: url(../../assets/123.png);
+}
+.register-form {
+  position: absolute;
+  right: 16%;
+  background: #fff;
+  top: 18%;
+  width: 29vw;
+  height: 74vh;
+  padding: 50px;
+}
+.gg-btn {
+  height: 59px;
+  display: flex;
+  align-items: center;
+  width: 253px;
+  margin-top: 20px;
+}
+
+.kep-login-facebook {
+  height: 59px;
+  /* display: flex; */
+  /* align-items: center; */
+  /* width: 253px; */
+
+  margin-top: 20px;
+  /* justify-content: center; */
+}
+/* .btn-cont {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} */
+.btn-tai {
+  margin-top: 1rem;
+  background: var(--clr-primary-8) !important;
+  outline: none !important;
+  border: none !important;
+}
+.btn-tai:hover {
+  background: var(--clr-primary-6) !important;
+}
+.margin {
+  margin-top: 1rem;
+  display: block;
 }

@@ -1,88 +1,124 @@
-import React, { useEffect, useState } from "react";
-import {Navbar, Container, FormControl, Nav, Button, Form } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React, { useEffect } from "react";
+import styled from 'styled-components'
+import { FaBars } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
+import { links } from '../utils/constants'
+import CartButton from './CartButton'
+import { useSelector } from "react-redux";
 
-import {useNavigate} from 'react-router-dom';
-import productAction from "../redux/actions/product.action";
-import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
-import './PublicNavBar.css'
-import userAction from "../redux/actions/user.action";
+
 
 
 const PublicNavbar = () => {
-    const [query, setQuery] = useState("");
-    const [pageNum, setPageNum] = useState(1);
-    const limit = 10;
+    const user = useSelector(state=> state.user?.userLocal)
+  // const user = localStorage.getItem('token')
+  // console.log(user, 'checkout');
+    useEffect(() => {
 
-    const dispatch = useDispatch();
-
-    const handleSearchChange = (e) => {
-        e.preventDefault();
-        setQuery(e.target.value);
-    }
-
-    // const handleLogOut = (e) => {
-    //     localStorage.removeItem("token");
-    //     // dispatch(userAction.logout())
-    //     // dispatch(userAction.getCurrentUser())
-    // }
-
-    const navigate = useNavigate();
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        dispatch(productAction.getAllProduct({pageNum, limit, query}));
-    }
-    const user = useSelector((state) => state.user.user);
-    // useEffect(() => {
-    //     dispatch(userAction.getCurrentUser());
-    //   }, []);
-    console.log(user, 'haha userrr neee')
+    },[user]) 
     return (
-        <div>
-           <Navbar bg="light" expand="lg">
-            <Container fluid>
-                <Navbar.Brand href="#" className="logo">Pluton</Navbar.Brand>
-                <Navbar.Toggle aria-controls="navbarScroll" />
-                <Navbar.Collapse id="navbarScroll">
-                <Nav
-                    className="me-auto my-2 my-lg-0"
-                    style={{ maxHeight: '100px' }}
-                    navbarScroll
-                >
-                    <Nav.Link as={NavLink} to="/">Home</Nav.Link>
-                    <Nav.Link as={NavLink} to="/cart"><FontAwesomeIcon icon={faShoppingCart} />Cart</Nav.Link>
-                    
-                    {/* <Nav.Link as={NavLink} to="/profile">Profile Page</Nav.Link> */}
-                </Nav>
-                {/* <Nav.Link as={NavLink} to="/" onClick={handleLogOut} style={{ marginRight: 30}}>Log out</Nav.Link>   */}
-                {
-                    user && <div>
-                        <div style={{display:'inline-block'}}>{user.name}</div> 
-                        <Nav.Link as={NavLink} to="/update-login" style={{display:'inline-block'}}>
-                        <img alt="" src={user.avatar} style={{width:'40px', margin:'0 20px', borderRadius: '50%'}}/>
-                        </Nav.Link>
-                    </div>
-                }
-                <Form className="d-flex" onSubmit={handleSubmit}>
-                    <FormControl
-                    type="search"
-                    placeholder="Search"
-                    className="me-2"
-                    aria-label="Search"
-                    onChange={handleSearchChange}
-                    />
-                    <Button as={NavLink} to="/product" onClick={handleSubmit} className="btn-me">Search</Button>
-                    
-                </Form>
-                <Nav.Link as={NavLink} to="/register" style={{color:'#000'}}>Sign up</Nav.Link>
-                    <Nav.Link as={NavLink} to="/login" style={{color:'#000'}}>Log in</Nav.Link>
-                </Navbar.Collapse>
-            </Container>
-            </Navbar>
+      
+        <NavContainer>
+        <div className="nav-center">
+           <div className="nav-header">
+             <Link to="/">
+               {/* <img src={logo} alt="logo" style={{width:'70px'}}/> */}
+               <span className="logo-text">!ayah</span>
+             </Link>
+             <button type="button" className="nav-toggle">
+               <FaBars />
+             </button>
+           </div>
+           <ul className="nav-links">
+             {links.map((link)=>{
+               const {id,text, url} = link;
+               return <li key={id}>
+                    <Link to={url}>
+                      {text}
+                    </Link>
+               </li>;
+             })}
+             {
+               user && <li>
+                 <Link to="/checkout">checkout</Link>
+               </li>
+             }
+           </ul>
+           <CartButton />
         </div>
+      </NavContainer>
     )
 }
+const NavContainer = styled.nav`
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .logo-text{
+    color: #000;
+    font-family: 'Corinthia', cursive;
+    font-size:50px
+  }
+  .nav-center {
+    width: 90vw;
+    margin: 0 auto;
+    max-width: var(--max-width);
+  }
+  .nav-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    img {
+      width: 175px;
+      margin-left: -15px;
+    }
+  }
+  .nav-toggle {
+    background: transparent;
+    border: transparent;
+    color: var(--clr-primary-5);
+    cursor: pointer;
+    svg {
+      font-size: 2rem;
+    }
+  }
+  .nav-links {
+    display: none;
+    list-style:none;
+  }
+  .cart-btn-wrapper {
+    display: none;
+  }
+  @media (min-width: 992px) {
+    .nav-toggle {
+      display: none;
+    }
+    .nav-center {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+    }
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      li {
+        margin: 0 0.5rem;
+      }
+      a {
+        color: var(--clr-grey-3);
+        font-size: 1rem;
+        text-transform: capitalize;
+        letter-spacing: var(--spacing);
+        padding: 0.5rem;
+        &:hover {
+          border-bottom: 2px solid var(--clr-primary-7);
+        }
+      }
+    }
+    .cart-btn-wrapper {
+      display: grid;
+    }
+  }
+`
 
 export default PublicNavbar

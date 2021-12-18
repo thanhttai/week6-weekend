@@ -1,190 +1,99 @@
-import React, { useState, useEffect } from "react";
-import { Button, Col, Container, Row, Toast } from "react-bootstrap";
-import { useParams } from "react-router-dom";
-import userActions from "../redux/actions/user.action";
-import { useDispatch, useSelector } from "react-redux";
-import cartActions from "../redux/actions/cart.action";
-import productAction from "../redux/actions/product.action";
+import React, { useEffect } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
+// import { useProductsContext } from '../context/products_context'
+// import { single_product_url as url } from '../utils/constants'
+import { formatPrice } from '../utils/helper'
+import ProductAction from '../redux/actions/product.action'
+import ProductImages from '../components/ProductImages'
+import Stars from '../components/Stars'
+import AddToCart from '../components/AddtoCart'
+
+import PageHero from '../components/PageHero'
+import styled from 'styled-components'
+import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+
+const SingleProductPage = () => {
+  const {id} = useParams();
+ 
+  // const navigate = useNavigate();
 
 
-const BookDetailPage = () => {
-  const [deleteReview, setDeleteReview] = useState('')
-  const [showA, setShowA] = useState(true);
-  const [showB, setShowB] = useState(true);
-
-  const [update, setUpdate] = useState(false);
-  const [comment, setComment] = useState(false);
-  const [review, setReview] = useState("");
-  const [rating, setRating] = useState(1);
-  const [updateComment, setUpdateComment] = useState(false)
+  const product = useSelector(state=> state.product.singleProduct)
   
-  const [addingProductToCart, setAddingProductToCart] = useState(false);
-  const params = useParams();
-  const productId = params.id;
+  const dispatch = useDispatch()
+  useEffect(() => {
+  
+    dispatch(ProductAction.getProductDetail({id}))
+  },[id, dispatch])
 
-  const handleCommentText = (e) => {
-    console.log(e.target.value, 'hahahahaha')
-    setComment(e.target.value)
-   
-  }
-  // useEffect(() => {
-    
-  // },[comment])
-
-  const handleSuccess = (e) => {  
-    
-    if(e.keyCode === 13) {
-      setUpdateComment(false)
-      dispatch(userActions.putReview({updateComment, comment, productId}))
-    }
-  }
-
-  const addToCart = (product) => {
-    setAddingProductToCart(product?._id);
-  };
-  const updateProductToCart = (product) => {
-    setUpdate(product?._id);
-  };
-
-
-  const toggleShowA = () => setShowA(!showA);
-  const toggleShowB = () => setShowB(!showB);
-
-  const handleReviewInput = (e) => {
-    e.preventDefault();
-    setReview(e.target.value);
+  return <Wrapper>
+    <PageHero 
+    title={product?.name} 
+    product />
+    <div className="section section-center page">
+      <Link to="/products" className="btn">
+        back to products
+      </Link>
+      <div className="product-center">
+        <ProductImages images={product?.images} />
+        <section className="content">
+          <h2>{product?.name}</h2>
+          <Stars stars={product?.stars} reviews={product?.reviews}/>
+          <h5 className="price"> {formatPrice(product?.price)}</h5>
+          <p className="desc"> {product?.description}</p>
+          <p className="info">
+            <span>Available : </span>
+            {product?.stock > 0 ? "In stock": "out of stock"}
+          </p>
+          <p className="info">
+          <span>SKU : </span>
+            {product?._id}
+          </p>
+          <p className="info">
+          <span>Brand : </span>
+            {product?.company}
+          </p>
+          <hr />
+          {product?.stock > 0 && <AddToCart product={product} />}
+        </section>
+      </div>
+    </div>
+  </Wrapper>
 }
 
-const handleReviewSubmit = () => {
-  
-    dispatch(userActions.postReview({ review, productId, rating }));
-    
-};
-
-const  handUpdateReview = (id) => {
-  console.log(id,'hohohohohohho')
-  setUpdateComment(id)
-}
-// useEffect(() => {
-  
-//   if (updateComment && comment) {
-//     console.log('ngonnnnn lànhhhhhhhh')
-//     dispatch(userActions.putReview({updateComment, comment}))
-//   }
-// }, [comment]);
-
-useEffect(() => {
-  if (update) {
-    dispatch(cartActions.updateCart({update}))
+const Wrapper = styled.main`
+  .product-center {
+    display: grid;
+    gap: 4rem;
+    margin-top: 2rem;
   }
-}, [update]);
-
-  useEffect(() => {
-    if (addingProductToCart) {
-      dispatch(cartActions.addToCart({addingProductToCart}))
-    }
-  }, [addingProductToCart]);
-
-
-  const dispatch = useDispatch();
-  const product = useSelector((state) => state.product.singleProduct);
-  const loading = useSelector(state => state.product.loading);
-  const comments = useSelector(state => state.user.comment);
- console.log(comments, 'reviewwwwwwww neneee')
-
-  // console.log("book", book);
-  // const errorMessage = useSelector(state => state.books.errorMessage);
-  useEffect(() => {
-    dispatch(productAction.getProductDetail({productId}));
-  }, [productId, dispatch]);
-
-
-  const handleDeleteReview = (reviewId) => {
-    setDeleteReview(reviewId)
+  .price {
+    color: var(--clr-primary-5);
   }
-  useEffect(() => {
-    if(deleteReview){
-      console.log(deleteReview,'huhuhuhuhuhuhuhu')
-    dispatch(userActions.deleteReview({deleteReview, productId}))
+  .desc {
+    line-height: 2;
+    max-width: 45em;
+  }
+  .info {
+    text-transform: capitalize;
+    width: 300px;
+    display: grid;
+    grid-template-columns: 125px 1fr;
+    span {
+      font-weight: 700;
     }
-  },[dispatch, deleteReview]);
+  }
 
-  useEffect(() => {
-    dispatch(userActions.getAllComment({productId, dispatch}))
-  },[productId]);   
-  // dispatch(userActions.getAllComment())
+  @media (min-width: 992px) {
+    .product-center {
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+    }
+    .price {
+      font-size: 1.25rem;
+    }
+  }
+`
 
-  return (  
-    <Container>
-    {/* {loading ? (
-        <div className="text-center">
-        <ClipLoader color="#f86c6b" size={150} loading={true} />
-        </div>
-    ) : ( */}
-        <Row className="border-me mt-5">
-        <Col md={3}>
-            {product && (
-            <img
-                className="w-100"
-                src={product?.photo}
-                alt="Product Image"
-            />
-            )}
-        </Col>
-        <Col md={9} className="padding-me">
-            {product && (
-            <>
-                <h2>{product?.name}</h2>
-                <p>
-                {" "}
-                    <i>{product?.description}</i>
-                </p>
-                <div>
-                <strong>Price: </strong>{product?.price.toLocaleString()} VND
-                </div>
-                <div className="margin">
-                <strong>In stock:</strong> {product?.stock}
-                </div>
-                <Button onClick={()=> updateProductToCart(product)}>
-                Update Cart
-                </Button>{" "}
-                <Button onClick={()=> addToCart(product)}>
-                Create Cart
-                </Button>{" "}
-            </>
-            )}
-               <div>
-              <strong>Write us your review</strong>
-              <br />
-              <textarea key="review" rows="5" cols="50" onChange={handleReviewInput}></textarea>
-              </div>
-              <br />
-              <div>
-              <Button onClick={handleReviewSubmit}>Send review</Button>
-              </div>
-              <ul>
-                {comments && comments.map((review)=> {
-                  return <li key={review._id}>{review.content}
-                   <Button onClick={()=> handleDeleteReview(review._id)} style={{margin:'10px 30px'}}>
-                     Delete
-                    </Button>
-                    {updateComment ? 
-                    <textarea onChange={handleCommentText} onKeyDown={handleSuccess} style={{margin:'10px 30px'}}>
-                    
-                   </textarea>: 
-                   <Button onClick={()=> handUpdateReview(review._id)} style={{margin:'10px 30px'}}>
-                     Update
-                    </Button>
-                    }
-                   </li>;
-                })} 
-              </ul>
-        </Col>
-        </Row>
-        
-    {/* )} */}
-</Container>
-  );  
-};
-
-export default BookDetailPage;
+export default SingleProductPage

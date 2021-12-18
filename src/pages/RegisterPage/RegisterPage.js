@@ -20,9 +20,9 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="register-form">
+    <div className="page-100" style={{padding: '50px 200px'}}>
       <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Group className="" controlId="formBasicPassword">
           <Form.Label>Name</Form.Label>
           <Form.Control
             type="text"

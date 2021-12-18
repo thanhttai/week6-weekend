@@ -4,10 +4,9 @@ const api = axios.create({
   baseURL: process.env.REACT_APP_BACKEND_API,
   headers: {
     "Content-Type": "application/json",
-    // Authorization: "Bearer " + localStorage.getItem("token"),
+    authorization: "Bearer " + JSON.parse(localStorage.getItem('token')),
   },
 });
-
 /**
  * console.log all requests and responses
  */
@@ -20,10 +19,14 @@ api.interceptors.request.use(
     console.log("REQUEST ERROR", error);
   }
 );
-
+ 
 api.interceptors.response.use(
   (response) => {
     console.log("Response:", response);
+   
+    if(response.data.message === "Successfully login user"){
+      // request.headers.authorization = "Bearer " + response.data.data;
+    }
     return response;
   },
   function (error) {
