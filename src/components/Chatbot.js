@@ -41,7 +41,7 @@ class Chatbot extends Component {
         }
         this.setState({messages: [...this.state.messages, says]});
   
-        const res = await axios.post('http://ecommer-thanhttri.herokuapp.com/api/chats/df_text_query',{text: queryText, userID: cookies.get('userID')})
+        const res = await axios.post('https://ecommer-thanhttri.herokuapp.com/api/chats/df_text_query',{text: queryText, userID: cookies.get('userID')})
         for(let msg of res?.data?.fulfillmentMessages){
             console.log(JSON.stringify(msg))
             says = {
