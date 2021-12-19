@@ -41,8 +41,8 @@ class Chatbot extends Component {
         }
         this.setState({messages: [...this.state.messages, says]});
   
-        const res = await axios.post('https://ecommer-thanhttri.herokuapp.com/api/df_text_query',{text: queryText, userID: cookies.get('userID')},{headers: {"Access-Control-Allow-Origin": "*"}})
-        for(let msg of res.data.fulfillmentMessages){
+        const res = await axios.post('http://ecommer-thanhttri.herokuapp.com/api/chats/df_text_query',{text: queryText, userID: cookies.get('userID')})
+        for(let msg of res?.data?.fulfillmentMessages){
             console.log(JSON.stringify(msg))
             says = {
                 speaks: 'bot',
@@ -52,25 +52,25 @@ class Chatbot extends Component {
         }
 
       } catch (error) {
-          console.log(error)
+        //   console.log(error)
       }
     }
-    async df_event_query(eventName){
-       try {
-        const res = await axios.post('https://ecommer-thanhttri.herokuapp.com/api/df_event_query', {event: eventName, userID: cookies.get('userID')},{headers: {"Access-Control-Allow-Origin": "*"}});
+    // async df_event_query(eventName){
+    //    try {
+    //     const res = await axios.post('http://localhost:5000/api/df_event_query', {event: eventName, userID: cookies.get('userID')},{headers: {"Access-Control-Allow-Origin": "*"}});
     
-        for(let msg of res.data.fulfillmentMessages){
-            let says = {
-                speaks: 'bot',
-                msg: msg
-            }
-            this.setState({messages: [...this.state.messages, says]});
+    //     for(let msg of res?.data?.fulfillmentMessages){
+    //         let says = {
+    //             speaks: 'bot',
+    //             msg: msg
+    //         }
+    //         this.setState({messages: [...this.state.messages, says]});
             
-        }
-       } catch (error) {
-           console.log(error)
-       }
-    }
+    //     }
+    //    } catch (error) {
+    //        console.log(error)
+    //    }
+    // }
 
     resolveAfterXaSeconds(x){
         return new Promise(resolve => {
@@ -81,20 +81,20 @@ class Chatbot extends Component {
     }
     
    async componentDidMount() {
-        this.df_event_query('Welcome');
-        if(window.location.pathname === '/shop' && !this.state.shopWelcomeSent){
-            await this.resolveAfterXaSeconds(1)
-            this.df_event_query('WELCOME_SHOP')
-            this.setState({shopWelcomeSent: true, showBot: true})
-        }
+        // this.df_event_query('Welcome');
+        // if(window.location.pathname === '/shop' && !this.state.shopWelcomeSent){
+        //     await this.resolveAfterXaSeconds(1)
+        //     this.df_event_query('WELCOME_SHOP')
+        //     this.setState({shopWelcomeSent: true, showBot: true})
+        // }
 
-        this.props.history?.listen(()=> {
-            console.log('listening')
-            if(this.props.history.location.pathname === '/shop' && !this.state.shopWelcomeSent){ 
-                this.df_event_query('WELCOME_SHOP')
-                this.setState({shopWelcomeSent: true, showBot: true})
-            }
-        })
+        // this.props.history?.listen(()=> {
+        //     console.log('listening')
+        //     if(this.props.history.location.pathname === '/shop' && !this.state.shopWelcomeSent){ 
+        //         this.df_event_query('WELCOME_SHOP')
+        //         this.setState({shopWelcomeSent: true, showBot: true})
+        //     }
+        // })
 
         
     }
